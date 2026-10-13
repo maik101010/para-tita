@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#190f1d" />
+    <meta
+      name="description"
+      content="Una pequeña historia hecha con mucho amor."
+    />
+    <title>Para Angela y solo para ella...</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Montserrat:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <div class="noise" aria-hidden="true"></div>
+    <div class="floating-hearts" id="floating-hearts" aria-hidden="true"></div>
+
+    <section class="intro" id="intro">
+      <div class="intro__glow" aria-hidden="true"></div>
+      <p class="eyebrow">Tengo algo que decirte</p>
+      <h1>Para <span>Ángela,</span><small>y solo para ella...</small></h1>
+      <button class="button button--primary" id="open-story">
+        <span>Bueno… ábrelo</span>
+        <span class="button__heart" aria-hidden="true">♥</span>
+      </button>
+    </section>
+
+    <main id="story" class="story" aria-hidden="true">
+      <section class="hero section">
+        <div class="hero__orb" aria-hidden="true"></div>
+        <div class="hero__content reveal">
+          <p class="eyebrow">Aun desde lejos</p>
+          <h2>
+            Incluso en los días más fríos,<br />
+            <em>pensar en ti se siente como hogar.</em>
+          </h2>
+        </div>
+        <a class="scroll-hint" href="#letter" aria-label="Continuar">
+          <span>Continúa</span>
+          <span class="scroll-hint__line"></span>
+        </a>
+      </section>
+
+      <section class="letter-section section" id="letter">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Sin pedirte nada a cambio</p>
+          <h2>Lo que quería decirte</h2>
+        </div>
+
+        <div class="envelope-wrap reveal">
+          <button class="envelope" id="envelope" aria-label="Abrir la carta">
+            <span class="envelope__back"></span>
+            <span class="letter-card">
+              <span class="letter-card__greeting">
+                Mi querida <span data-her-name>amor</span>,
+              </span>
+              <span class="letter-card__body" data-letter-text>
+                Llegaste a mi vida y, sin hacer ruido, cambiaste la forma en la
+                que veo mis días. Contigo entendí que el cariño vive en los
+                detalles... en una mirada, en una risa inesperada y en la calma
+                de saber que estás ahí. Te quiero por
+                quien eres, por quien me converti a tu lado y por todo lo que aún me gustaria vivir contigo.
+              </span>
+              <span class="letter-card__signature">
+                Con mucho cariño,<br />
+                <strong data-my-name>yo</strong>
+              </span>
+            </span>
+            <span class="envelope__front"></span>
+            <span class="envelope__flap"></span>
+            <span class="envelope__seal">♥</span>
+          </button>
+          <p class="envelope-hint" id="envelope-hint">Toca el sobre para abrirlo</p>
+        </div>
+      </section>
+
+      <section class="reasons section">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Por si alguna vez lo dudas</p>
+          <h2>Cosas que quiero que sepas</h2>
+        </div>
+
+        <div class="reason-stage reveal">
+          <button class="reason-nav" id="reason-prev" aria-label="Razón anterior">
+            ←
+          </button>
+          <article class="reason-card" id="reason-card">
+            <span class="reason-card__number" id="reason-number">01</span>
+            <span class="reason-card__icon" id="reason-icon" aria-hidden="true">✦</span>
+            <p id="reason-text">Lo que siento por ti sigue ahí, incluso desde la distancia.</p>
+          </article>
+          <button class="reason-nav" id="reason-next" aria-label="Razón siguiente">
+            →
+          </button>
+        </div>
+        <div class="reason-dots" id="reason-dots" aria-label="Seleccionar razón"></div>
+      </section>
+
+      <section class="moments section">
+        <div class="section-heading reveal">
+          <p class="eyebrow">En palabras sencillas</p>
+          <h2>Esto también es verdad</h2>
+        </div>
+
+        <div class="timeline">
+          <article class="moment reveal">
+            <span class="moment__marker"></span>
+            <p class="moment__date">Aunque estemos lejos</p>
+            <h3>Te extraño</h3>
+            <p>
+              Hay días en los que quisiera saltarme la distancia y simplemente
+              compartir contigo las cosas pequeñas.
+            </p>
+          </article>
+          <article class="moment reveal">
+            <span class="moment__marker"></span>
+            <p class="moment__date">Aunque no siempre lo diga</p>
+            <h3>Me importas muchísimo</h3>
+            <p>
+              Cada correo, cada llamada y cada vez que sé de ti sigue siendo
+              importante para mí.
+            </p>
+          </article>
+          <article class="moment reveal">
+            <span class="moment__marker"></span>
+            <p class="moment__date">Sin condiciones</p>
+            <h3>Eres demasiado especial</h3>
+            <p>
+              Lo que hemos compartido ocupa un lugar que valoro profundamente
+              y que siempre voy a cuidar.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="counter section">
+        <div class="counter__content reveal">
+          <p class="eyebrow">Y todavía estamos comenzando</p>
+          <h2>Amándote desde hace</h2>
+          <div class="time-grid" id="time-counter">
+            <div><strong id="days">0</strong><span>días</span></div>
+            <div><strong id="hours">0</strong><span>horas</span></div>
+            <div><strong id="minutes">0</strong><span>minutos</span></div>
+            <div><strong id="seconds">0</strong><span>segundos</span></div>
+          </div>
+          <p class="counter__note" id="counter-note">
+            Y te elegiría en cada uno de ellos.
+          </p>
+        </div>
+      </section>
+
+      <section class="finale section">
+        <div class="finale__stars" aria-hidden="true"></div>
+        <div class="finale__content reveal">
+          <p class="eyebrow">Entre montañas y distancias</p>
+          <h2>Eres alguien muy<br />importante para mí.</h2>
+          <p>
+            No sé qué traerá el camino.<br />
+            Solo quería que nunca olvidaras lo que significas para mí.
+          </p>
+          <button class="button button--outline" id="love-button">
+            Una última cosa
+          </button>
+          <div class="final-message" id="final-message" aria-live="polite">
+            <span class="final-message__heart">♥</span>
+            <p>Te amo, <span data-her-name>mi amor</span>.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
