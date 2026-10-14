@@ -21,6 +21,70 @@ const envelope = document.querySelector("#envelope");
 const envelopeHint = document.querySelector("#envelope-hint");
 const loveButton = document.querySelector("#love-button");
 const finalMessage = document.querySelector("#final-message");
+const accessGate = document.querySelector("#access-gate");
+const accessForm = document.querySelector("#access-form");
+const accessPassword = document.querySelector("#access-password");
+const accessError = document.querySelector("#access-error");
+const revealPassword = document.querySelector("#reveal-password");
+const passwordField = document.querySelector(".access-form__field");
+const accessHash =
+  "c741c53870292f2ee92a85aec89cea97c6c8ffd2e5c17e1eaf980e148eee7063";
+
+async function hashText(value) {
+  const data = new TextEncoder().encode(value);
+  const digest = await crypto.subtle.digest("SHA-256", data);
+  return [...new Uint8Array(digest)]
+    .map((byte) => byte.toString(16).padStart(2, "0"))
+    .join("");
+}
+
+function unlockPage(animate = true) {
+  if (!animate) accessGate.style.transition = "none";
+  accessGate.classList.add("is-unlocked");
+  accessGate.setAttribute("aria-hidden", "true");
+  intro.inert = false;
+
+  if (animate) {
+    releasePetals(12);
+    window.setTimeout(() => openStory.focus(), 850);
+  }
+}
+
+intro.inert = true;
+
+if (sessionStorage.getItem("heart-access") === "granted") {
+  unlockPage(false);
+}
+
+accessForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const normalizedPassword = accessPassword.value.trim().toLocaleLowerCase("es");
+  const submittedHash = await hashText(normalizedPassword);
+
+  if (submittedHash === accessHash) {
+    sessionStorage.setItem("heart-access", "granted");
+    accessError.textContent = "";
+    unlockPage();
+    return;
+  }
+
+  accessError.textContent = "Esa palabra no abrió el camino. Inténtalo otra vez.";
+  passwordField.classList.remove("is-wrong");
+  void passwordField.offsetWidth;
+  passwordField.classList.add("is-wrong");
+  accessPassword.select();
+});
+
+revealPassword.addEventListener("click", () => {
+  const isHidden = accessPassword.type === "password";
+  accessPassword.type = isHidden ? "text" : "password";
+  revealPassword.textContent = isHidden ? "◆" : "◇";
+  revealPassword.setAttribute(
+    "aria-label",
+    isHidden ? "Ocultar contraseña" : "Mostrar contraseña"
+  );
+  accessPassword.focus();
+});
 
 function plantFlowers(section, amount, side) {
   const garden = document.createElement("div");
@@ -41,6 +105,8 @@ function plantFlowers(section, amount, side) {
   section.append(garden);
 }
 
+plantFlowers(accessGate, 7, "left");
+plantFlowers(accessGate, 5, "right");
 plantFlowers(intro, 7, "left");
 plantFlowers(intro, 5, "right");
 plantFlowers(document.querySelector(".letter-section"), 6, "left");

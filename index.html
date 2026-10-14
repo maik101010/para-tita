@@ -22,6 +22,46 @@
     <div class="noise" aria-hidden="true"></div>
     <div class="floating-hearts" id="floating-hearts" aria-hidden="true"></div>
 
+    <section class="access-gate" id="access-gate" aria-labelledby="access-title">
+      <div class="access-gate__halo" aria-hidden="true"></div>
+      <div class="access-card">
+        <span class="access-card__seal" aria-hidden="true">♥</span>
+        <p class="eyebrow">Un pequeño secreto</p>
+        <h1 id="access-title">La contraseña<br />de tu corazón</h1>
+        <p class="access-card__copy">
+          Hay algo detrás de estas montañas<br />
+          que fue hecho solo para ti.
+        </p>
+        <form class="access-form" id="access-form">
+          <label for="access-password">Escribe la palabra secreta</label>
+          <div class="access-form__field">
+            <input
+              id="access-password"
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              placeholder="••••"
+              required
+            />
+            <button
+              class="access-form__reveal"
+              id="reveal-password"
+              type="button"
+              aria-label="Mostrar contraseña"
+            >
+              ◇
+            </button>
+          </div>
+          <p class="access-form__error" id="access-error" aria-live="polite"></p>
+          <button class="button button--primary access-form__submit" type="submit">
+            <span>Abrir el camino</span>
+            <span aria-hidden="true">♥</span>
+          </button>
+        </form>
+        <p class="access-card__hint">Pista: tú ya la conoces.</p>
+      </div>
+    </section>
+
     <section class="intro" id="intro">
       <div class="intro__glow" aria-hidden="true"></div>
       <p class="eyebrow">Tengo algo que decirte</p>
