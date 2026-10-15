@@ -1117,7 +1117,7 @@ button {
 }
 
 .final-message.is-visible {
-  max-height: 15rem;
+  max-height: 22rem;
   margin-top: 3rem;
   opacity: 1;
 }
@@ -1145,6 +1145,44 @@ button {
   color: var(--muted);
   font-family: var(--serif);
   font-size: 1rem;
+}
+
+.lock-letter {
+  display: flex;
+  margin-top: 1.8rem;
+  padding: .85rem 1.5rem;
+  flex-direction: column;
+  color: var(--red);
+  border: 1px solid rgba(148,31,54,.4);
+  background: rgba(244,242,236,.58);
+  transition: color .25s, background .25s, transform .25s;
+}
+
+.lock-letter span {
+  font-size: .65rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.lock-letter small {
+  margin-top: .25rem;
+  color: var(--muted);
+  font-family: var(--serif);
+  font-size: .85rem;
+  font-style: italic;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.lock-letter:hover {
+  color: #fff;
+  background: var(--red);
+  transform: translateY(-2px);
+}
+
+.lock-letter:hover small {
+  color: rgba(255,255,255,.82);
 }
 
 .reveal {

@@ -27,8 +27,11 @@ const accessPassword = document.querySelector("#access-password");
 const accessError = document.querySelector("#access-error");
 const revealPassword = document.querySelector("#reveal-password");
 const passwordField = document.querySelector(".access-form__field");
+const lockLetter = document.querySelector("#lock-letter");
 const accessHash =
   "c741c53870292f2ee92a85aec89cea97c6c8ffd2e5c17e1eaf980e148eee7063";
+const accessDuration = 10 * 60 * 1000;
+let accessTimer;
 
 async function hashText(value) {
   const data = new TextEncoder().encode(value);
@@ -38,7 +41,10 @@ async function hashText(value) {
     .join("");
 }
 
-function unlockPage(animate = true) {
+function unlockPage(expiresAt, animate = true) {
+  window.clearTimeout(accessTimer);
+  accessTimer = window.setTimeout(lockPage, Math.max(expiresAt - Date.now(), 0));
+
   if (!animate) accessGate.style.transition = "none";
   accessGate.classList.add("is-unlocked");
   accessGate.setAttribute("aria-hidden", "true");
@@ -50,10 +56,36 @@ function unlockPage(animate = true) {
   }
 }
 
+function lockPage() {
+  window.clearTimeout(accessTimer);
+  sessionStorage.removeItem("heart-access-until");
+  sessionStorage.removeItem("heart-access");
+  accessGate.style.transition = "";
+  accessGate.classList.remove("is-unlocked");
+  accessGate.setAttribute("aria-hidden", "false");
+  intro.inert = true;
+  accessPassword.value = "";
+  accessError.textContent = "";
+
+  intro.classList.remove("is-hidden");
+  story.classList.remove("is-visible");
+  story.setAttribute("aria-hidden", "true");
+  envelope.classList.remove("is-open");
+  envelopeHint.textContent = "Toca el sobre para abrirlo";
+  finalMessage.classList.remove("is-visible");
+  loveButton.style.display = "";
+  document.body.style.overflow = "hidden";
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  window.setTimeout(() => accessPassword.focus(), 500);
+}
+
 intro.inert = true;
 
-if (sessionStorage.getItem("heart-access") === "granted") {
-  unlockPage(false);
+const savedAccessExpiry = Number(sessionStorage.getItem("heart-access-until"));
+sessionStorage.removeItem("heart-access");
+
+if (savedAccessExpiry > Date.now()) {
+  unlockPage(savedAccessExpiry, false);
 }
 
 accessForm.addEventListener("submit", async (event) => {
@@ -62,9 +94,10 @@ accessForm.addEventListener("submit", async (event) => {
   const submittedHash = await hashText(normalizedPassword);
 
   if (submittedHash === accessHash) {
-    sessionStorage.setItem("heart-access", "granted");
+    const expiresAt = Date.now() + accessDuration;
+    sessionStorage.setItem("heart-access-until", String(expiresAt));
     accessError.textContent = "";
-    unlockPage();
+    unlockPage(expiresAt);
     return;
   }
 
@@ -85,6 +118,8 @@ revealPassword.addEventListener("click", () => {
   );
   accessPassword.focus();
 });
+
+lockLetter.addEventListener("click", lockPage);
 
 function plantFlowers(section, amount, side) {
   const garden = document.createElement("div");
