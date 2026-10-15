@@ -12,6 +12,10 @@ Has sido una persona demasiado especial en mi vida. Lo que siento por ti es real
     { icon: "♥", text: "Has sido una persona demasiado especial para mí." },
     { icon: "⌁", text: "Quise escribir un mensaje normal… pero mis sentimientos exigieron flores y una página completa." },
   ],
+  detail: {
+    id: "rosa-roja-1",
+    message: "Quise dejar una pequeña rosa por aquí, porque hoy pensé en ti.",
+  },
 };
 
 const intro = document.querySelector("#intro");
@@ -28,6 +32,11 @@ const accessError = document.querySelector("#access-error");
 const revealPassword = document.querySelector("#reveal-password");
 const passwordField = document.querySelector(".access-form__field");
 const lockLetter = document.querySelector("#lock-letter");
+const detailTrigger = document.querySelector("#detail-trigger");
+const detailDialog = document.querySelector("#detail-dialog");
+const detailMessage = document.querySelector("#detail-message");
+const detailClose = document.querySelector("#detail-close");
+const detailKeep = document.querySelector("#detail-keep");
 const accessHash =
   "c741c53870292f2ee92a85aec89cea97c6c8ffd2e5c17e1eaf980e148eee7063";
 const accessDuration = 10 * 60 * 1000;
@@ -49,11 +58,32 @@ function unlockPage(expiresAt, animate = true) {
   accessGate.classList.add("is-unlocked");
   accessGate.setAttribute("aria-hidden", "true");
   intro.inert = false;
+  offerLatestDetail();
 
   if (animate) {
     releasePetals(12);
     window.setTimeout(() => openStory.focus(), 850);
   }
+}
+
+function offerLatestDetail() {
+  if (localStorage.getItem("seen-detail") === page.detail.id) return;
+
+  detailMessage.textContent = page.detail.message;
+  window.setTimeout(() => {
+    if (!accessGate.classList.contains("is-unlocked")) return;
+    detailTrigger.hidden = false;
+    window.requestAnimationFrame(() => detailTrigger.classList.add("is-visible"));
+  }, 1200);
+}
+
+function keepLatestDetail() {
+  localStorage.setItem("seen-detail", page.detail.id);
+  detailTrigger.classList.remove("is-visible");
+  window.setTimeout(() => {
+    detailTrigger.hidden = true;
+  }, 600);
+  if (detailDialog.open) detailDialog.close();
 }
 
 function lockPage() {
@@ -74,6 +104,9 @@ function lockPage() {
   envelopeHint.textContent = "Toca el sobre para abrirlo";
   finalMessage.classList.remove("is-visible");
   loveButton.style.display = "";
+  detailTrigger.classList.remove("is-visible");
+  detailTrigger.hidden = true;
+  if (detailDialog.open) detailDialog.close();
   document.body.style.overflow = "hidden";
   window.scrollTo({ top: 0, behavior: "smooth" });
   window.setTimeout(() => accessPassword.focus(), 500);
@@ -120,6 +153,21 @@ revealPassword.addEventListener("click", () => {
 });
 
 lockLetter.addEventListener("click", lockPage);
+
+detailTrigger.addEventListener("click", () => {
+  detailDialog.showModal();
+});
+
+detailClose.addEventListener("click", keepLatestDetail);
+detailKeep.addEventListener("click", keepLatestDetail);
+detailDialog.addEventListener("click", (event) => {
+  if (event.target === detailDialog) keepLatestDetail();
+});
+detailDialog.addEventListener("close", () => {
+  localStorage.setItem("seen-detail", page.detail.id);
+  detailTrigger.classList.remove("is-visible");
+  detailTrigger.hidden = true;
+});
 
 function plantFlowers(section, amount, side) {
   const garden = document.createElement("div");

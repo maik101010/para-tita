@@ -62,6 +62,35 @@
       </div>
     </section>
 
+    <button class="detail-trigger" id="detail-trigger" type="button" hidden>
+      <span class="rose-icon rose-icon--small" aria-hidden="true">
+        <i></i>
+      </span>
+      <span>Te dejé un pequeño detalle</span>
+    </button>
+
+    <dialog class="detail-dialog" id="detail-dialog">
+      <article class="detail-card">
+        <button
+          class="detail-card__close"
+          id="detail-close"
+          type="button"
+          aria-label="Cerrar"
+        >
+          ×
+        </button>
+        <span class="rose-icon" aria-hidden="true"><i></i></span>
+        <p class="eyebrow">Solo porque sí</p>
+        <h2>Un pequeño<br />detalle para ti</h2>
+        <p id="detail-message">
+          Quise dejar una pequeña rosa por aquí, porque hoy pensé en ti.
+        </p>
+        <button class="button button--outline" id="detail-keep" type="button">
+          Lo guardo conmigo
+        </button>
+      </article>
+    </dialog>
+
     <section class="intro" id="intro">
       <div class="intro__glow" aria-hidden="true"></div>
       <p class="eyebrow">Tengo algo que decirte</p>

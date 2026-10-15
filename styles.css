@@ -393,6 +393,204 @@ button {
   z-index: 3;
 }
 
+.detail-trigger {
+  position: fixed;
+  z-index: 80;
+  top: 1.3rem;
+  right: 1.8rem;
+  display: flex;
+  max-width: 15rem;
+  padding: .7rem 1rem .7rem .7rem;
+  align-items: center;
+  gap: .75rem;
+  color: var(--ink);
+  border: 1px solid rgba(148,31,54,.25);
+  background: rgba(248,247,242,.92);
+  box-shadow: 7px 8px 20px rgba(48,55,58,.12);
+  font-family: var(--serif);
+  font-size: .95rem;
+  font-style: italic;
+  line-height: 1.1;
+  text-align: left;
+  opacity: 0;
+  transform: translateY(-1rem);
+  transition: opacity .6s, transform .6s, box-shadow .25s;
+}
+
+.detail-trigger[hidden] {
+  display: none;
+}
+
+.detail-trigger.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.detail-trigger:hover {
+  box-shadow: 10px 11px 24px rgba(98,20,37,.16);
+}
+
+.rose-icon {
+  position: relative;
+  display: block;
+  width: 4.4rem;
+  height: 5.8rem;
+  margin: 0 auto 1rem;
+  flex: 0 0 auto;
+}
+
+.rose-icon::before {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 50%;
+  width: 3.4rem;
+  height: 3.2rem;
+  content: "";
+  border-radius: 48% 48% 52% 52%;
+  transform: translateX(-50%) rotate(-5deg);
+  background:
+    radial-gradient(ellipse at 50% 62%, #651224 0 15%, transparent 16%),
+    radial-gradient(ellipse at 38% 58%, #a51f39 0 27%, transparent 29%),
+    radial-gradient(ellipse at 66% 48%, #c73a50 0 28%, transparent 30%),
+    radial-gradient(ellipse at 48% 35%, #981a33 0 35%, transparent 37%),
+    #751328;
+  box-shadow: inset -6px -7px 12px rgba(75,8,25,.26), 0 5px 8px rgba(98,20,37,.18);
+}
+
+.rose-icon::after {
+  position: absolute;
+  top: 2.7rem;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  content: "";
+  transform: rotate(4deg);
+  transform-origin: top;
+  background: var(--pine);
+}
+
+.rose-icon i::before,
+.rose-icon i::after {
+  position: absolute;
+  z-index: 1;
+  top: 3.65rem;
+  left: 50%;
+  width: 1.5rem;
+  height: .65rem;
+  content: "";
+  border-radius: 100% 0 100% 0;
+  background: #60736c;
+}
+
+.rose-icon i::before {
+  margin-left: -1.45rem;
+  transform: rotate(17deg);
+}
+
+.rose-icon i::after {
+  margin-left: 0;
+  transform: rotate(-17deg) scaleX(-1);
+}
+
+.rose-icon--small {
+  width: 2.2rem;
+  height: 2.8rem;
+  margin: 0;
+}
+
+.rose-icon--small::before {
+  width: 1.8rem;
+  height: 1.7rem;
+}
+
+.rose-icon--small::after {
+  top: 1.45rem;
+}
+
+.rose-icon--small i::before,
+.rose-icon--small i::after {
+  top: 2rem;
+  width: .85rem;
+  height: .38rem;
+}
+
+.rose-icon--small i::before {
+  margin-left: -.8rem;
+}
+
+.detail-dialog {
+  width: min(31rem, calc(100vw - 2rem));
+  max-width: none;
+  padding: 0;
+  color: var(--ink);
+  border: 0;
+  background: transparent;
+  overflow: visible;
+}
+
+.detail-dialog::backdrop {
+  background: rgba(41,38,45,.38);
+  backdrop-filter: blur(7px);
+}
+
+.detail-dialog[open] {
+  animation: detail-appear .55s cubic-bezier(.2,.8,.25,1);
+}
+
+@keyframes detail-appear {
+  from { opacity: 0; transform: translateY(1.5rem) scale(.97); }
+}
+
+.detail-card {
+  position: relative;
+  padding: 3.3rem clamp(1.7rem, 7vw, 3.8rem) 2.7rem;
+  text-align: center;
+  border: 1px solid rgba(148,31,54,.25);
+  background: rgba(248,247,242,.98);
+  box-shadow: 0 28px 80px rgba(31,26,32,.28);
+}
+
+.detail-card::before {
+  position: absolute;
+  content: "";
+  border: 1px solid rgba(70,91,88,.15);
+  pointer-events: none;
+  inset: .7rem;
+}
+
+.detail-card__close {
+  position: absolute;
+  z-index: 2;
+  top: .9rem;
+  right: 1rem;
+  width: 2rem;
+  height: 2rem;
+  color: var(--red);
+  border: 0;
+  background: transparent;
+  font-family: var(--serif);
+  font-size: 1.8rem;
+}
+
+.detail-card h2 {
+  font-family: var(--serif);
+  font-size: clamp(2.6rem, 8vw, 4.2rem);
+  font-weight: 500;
+  letter-spacing: -.035em;
+  line-height: .9;
+}
+
+.detail-card > p:not(.eyebrow) {
+  max-width: 22rem;
+  margin: 1.6rem auto 2rem;
+  color: var(--muted);
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-style: italic;
+  line-height: 1.5;
+}
+
 .intro {
   position: fixed;
   z-index: 50;
